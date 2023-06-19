@@ -13,12 +13,11 @@ public class JpaMain {
         tx.begin();
 
         try {
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(5)
-                    .setMaxResults(8)
-                    .getResultList();
+            Member member = em.find(Member.class, 150L);
+            member.setName("AAAA");
 
-
+            em.detach(member);
+            System.out.println("==== after detaching member ====");
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
